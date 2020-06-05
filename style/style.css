@@ -1,3 +1,19 @@
+body {
+  background: #fafafa;
+}
+
 .tab-content {
   padding: 15px;
+}
+
+.form-pane {
+  width: 25rem;
+  background: #ffffff;
+  padding: 30px;
+  margin: 0 auto;
+}
+
+.action-right {
+  display: flex;
+  justify-content: flex-end;
 }
