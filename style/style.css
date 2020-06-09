@@ -35,3 +35,9 @@ body {
 .list-group-item {
   cursor: pointer;
 }
+
+@media (min-width: 768px) {
+  #filter-list {
+    display: flex;
+  }
+}
