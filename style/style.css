@@ -17,3 +17,21 @@ body {
   display: flex;
   justify-content: flex-end;
 }
+
+.thead-dark th:hover {
+  cursor: pointer;
+  background: var(--secondary);
+  filter: brightness(95%);
+}
+
+.table-hover .table-active:hover {
+  background-color: var(--secondary);
+}
+
+.thead-dark th.table-active {
+  filter: brightness(75%);
+}
+
+.list-group-item {
+  cursor: pointer;
+}

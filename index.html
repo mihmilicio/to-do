@@ -19,30 +19,16 @@
     <main>
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#dashboard"
-            >Dashboard</a
+          <a class="nav-link active" data-toggle="tab" href="#new"
+            >Nova tarefa</a
           >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#new">Nova tarefa</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#lista">Lista</a>
         </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane fade active show" id="dashboard">
-          <p>
-            Raw denim you probably haven't heard of them jean shorts Austin.
-            Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache
-            cliche tempor, williamsburg carles vegan helvetica. Reprehenderit
-            butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi,
-            qui irure terry richardson ex squid. Aliquip placeat salvia cillum
-            iphone. Seitan aliquip quis cardigan american apparel, butcher
-            voluptate nisi qui.
-          </p>
-        </div>
-        <div class="tab-pane fade form-pane shadow" id="new">
+        <div class="tab-pane fade active show form-pane shadow" id="new">
           <h1 class="mb-4">Criar nova tarefa</h1>
           <form id="form-new">
             <div class="form-group">
@@ -96,9 +82,19 @@
               </div>
               <div class="col-3">
                 <ul class="list-group">
-                  <!--adicionar all-->
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center active"
+                    data-category="null"
+                  >
+                    Todos
+                    <span
+                      class="badge badge-primary badge-pill"
+                      id="badge-all"
+                    ></span>
+                  </li>
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center"
+                    data-category="work"
                   >
                     Trabalho
                     <span
@@ -108,6 +104,7 @@
                   </li>
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center"
+                    data-category="university"
                   >
                     Universidade
                     <span
@@ -117,6 +114,7 @@
                   </li>
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center"
+                    data-category="home"
                   >
                     Casa
                     <span
@@ -126,6 +124,7 @@
                   </li>
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center"
+                    data-category="personal"
                   >
                     Pessoal
                     <span
@@ -135,6 +134,7 @@
                   </li>
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center"
+                    data-category="shop"
                   >
                     Compras
                     <span
@@ -146,13 +146,13 @@
               </div>
               <div class="col">
                 <table class="table table-bordered table-hover">
-                  <thead class="thead-dark">
+                  <thead class="thead-dark" id="list-head">
                     <tr>
-                      <th>Ordem</th>
-                      <th>Tarefa</th>
-                      <th>Prioridade</th>
-                      <th>Categoria</th>
-                      <th>Ações</th>
+                      <th class="table-active" data-sort="order">Ordem</th>
+                      <th data-sort="name">Tarefa</th>
+                      <th data-sort="priority">Prioridade</th>
+                      <th data-sort="category">Categoria</th>
+                      <th data-sort="completed">Ações</th>
                     </tr>
                   </thead>
                   <tbody id="list-body"></tbody>

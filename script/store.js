@@ -17,7 +17,24 @@ class TaskList {
 
   sort = (prop) => {
     this.lastSort = prop;
-    // TODO
+    // this.tasks.sort((a, b) => a[prop] - b[prop]);
+    this.tasks.sort((a, b) => {
+      if (prop == "order" || prop == "priority" || prop == "completed") {
+        return a[prop] - b[prop];
+      } else {
+        let newA = a[prop].toUpperCase(); // ignore upper and lowercase
+        let newB = b[prop].toUpperCase();
+        console.log(newA, newB);
+        if (newA < newB) {
+          return -1;
+        }
+        if (newA > newB) {
+          return 1;
+        }
+
+        return 0; // equal
+      }
+    });
     renderTable(this.tasks);
   };
 
@@ -27,7 +44,7 @@ class TaskList {
   addFromJson = (task) => {
     this.incrementOrder();
     this.tasks.push(new Task({ ...task, order: 1 }));
-    this.sort();
+    this.sort(this.lastSort);
     console.log(this.tasks);
   };
 
@@ -41,6 +58,22 @@ class TaskList {
       }
     }
     renderTable(this.tasks);
+  };
+
+  completeByOrder = (order) => {
+    let index = this.tasks.findIndex((task) => task.order == order);
+    console.log("Completa index:", index);
+    this.tasks[index].completed = true;
+    renderTable(this.tasks);
+  };
+
+  filterByCategory = (category) => {
+    if (category == null) {
+      renderTable(this.tasks);
+      return;
+    }
+    const res = this.tasks.filter((task) => task.category == category);
+    renderTable(res, false);
   };
 }
 

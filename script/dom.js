@@ -27,12 +27,28 @@ $(document).on("click", "button[data-function]", (e) => {
 
   switch (chosen) {
     case "complete":
-      break;
-    case "edit":
+      taskList.completeByOrder(rowId);
       break;
     case "delete":
       taskList.removeByOrder(rowId);
       break;
+  }
+});
+
+$("#list-head").on("click", "th", (e) => {
+  $("#list-head > tr > th").removeClass("table-active");
+  $(e.target).addClass("table-active");
+  taskList.sort($(e.target).attr("data-sort"));
+});
+
+$(".list-group-item").on("click", (e) => {
+  $(".list-group-item").removeClass("active");
+  const category = $(e.target).attr("data-category");
+  $(e.target).addClass("active");
+  if (category == "null") {
+    taskList.filterByCategory(null);
+  } else {
+    taskList.filterByCategory(category);
   }
 });
 
@@ -44,10 +60,27 @@ const categoryTranslate = {
   shop: "Compras",
 };
 
-const renderTable = (tasks) => {
-  // adicionar tradução da categoria
-  // adicionar ações
+const calcCategories = (tasks) => {
+  let totalLength = 0;
+  let catLengths = {};
+  Object.keys(categoryTranslate).forEach((category) => {
+    catLengths[category] = tasks.filter(
+      (task) => !task.completed && task.category == category
+    ).length;
+    totalLength += catLengths[category];
+    if (catLengths[category] > 0) {
+      $("#badge-" + category).text(catLengths[category]);
+    } else {
+      $("#badge-" + category).text("");
+    }
+
+    $("#badge-all").text(totalLength);
+  });
+};
+
+const renderTable = (tasks, hardUpdate = true) => {
   // adicionar color code pra prioridade
+  // adicionar filtro de completo ou não
   let tbody = $("#list-body");
   tbody.empty();
   if (tasks && tasks.length > 0) {
@@ -64,7 +97,6 @@ const renderTable = (tasks) => {
                 ? `<button type="button" data-function="delete" class="btn btn-light btn-sm" data-toggle="tooltip" data-placement="top" title="Remover">🗑</button>`
                 : `
                   <button type="button" data-function="complete" class="btn btn-light btn-sm" data-toggle="tooltip" data-placement="top" title="Completar">✔</button>
-                  <button type="button" data-function="edit" class="btn btn-light btn-sm" data-toggle="tooltip" data-placement="top" title="Editar">✏</button>
                   <button type="button" data-function="delete" class="btn btn-light btn-sm" data-toggle="tooltip" data-placement="top" title="Remover">🗑</button>
                 `
             }
@@ -86,4 +118,8 @@ const renderTable = (tasks) => {
 
   $(".tooltip").remove();
   $('[data-toggle="tooltip"]').tooltip();
+
+  if (hardUpdate) {
+    calcCategories(tasks);
+  }
 };
